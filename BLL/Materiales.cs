@@ -59,14 +59,14 @@ namespace BLL
                     conexion.Ejecutar(string.Format("delete from MaterialesDetalle where MaterialesId={0}", this.MaterialesId));
                     foreach (MaterialesDetalle material in Detalle)
                     {
-                        conexion.Ejecutar(string.Format("insert into MaterialesDetalle(MatrialesId,Materia,Cantidad) values({0},'{1}',{2})", this.MaterialesId, material.Material, material.Cantidad));
+                        conexion.Ejecutar(string.Format("insert into MaterialesDetalle(MatrialesId,Material,Cantidad) values({0},'{1}',{2})", this.MaterialesId, material.Material, material.Cantidad));
                     }
                 }
             }
             catch (Exception ex)
             {
 
-                throw ex;
+                lthrow ex;
             }
             return retorno;
         }

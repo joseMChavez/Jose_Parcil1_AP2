@@ -17,7 +17,7 @@ namespace Jose_Parcial1_AP2
 
             if (!IsPostBack)
             {
-                dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Materiales"), new DataColumn("Cantidad") });
+                dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Material"), new DataColumn("Cantidad") });
                 Session["Materiales"] = dt;
             }
         }
@@ -26,8 +26,8 @@ namespace Jose_Parcial1_AP2
             IdTextBox.Text = string.Empty;
             RazonTextBox.Text = string.Empty;
             DataTable dt = (DataTable)Session["Materiales"];
-            dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Materiales"), new DataColumn("Cantidad") });
-            Session["Materiales"] = dt;
+            //dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Material"), new DataColumn("Cantidad") });
+            //Session["Materiales"] = dt;
         }
         public void LlenarDatos(Materiales material)
         {
@@ -37,7 +37,7 @@ namespace Jose_Parcial1_AP2
             material.Razon = RazonTextBox.Text;
             foreach (GridViewRow fila in MaterialesGridView.Rows)
             {
-                material.AgregarMateriales(fila.Cells[0].ToString(), Convert.ToInt32(fila.Cells[1].ToString()));
+                material.AgregarMateriales(fila.Cells[0].Text, Convert.ToInt32(fila.Cells[1].Text));
             }
 
         }
@@ -54,9 +54,10 @@ namespace Jose_Parcial1_AP2
             foreach (MaterialesDetalle item in material.Detalle)
             {
                 dt.Rows.Add(item.Material, item.Cantidad);
-                MaterialesGridView.DataSource = Session["Materiales"];
-                MaterialesGridView.DataBind();
                 Session["Materiales"] = dt;
+                MaterialesGridView.DataSource = dt;
+                MaterialesGridView.DataBind();
+                
             }
         }
       
@@ -102,9 +103,10 @@ namespace Jose_Parcial1_AP2
         {
             DataTable dt = (DataTable)Session["Materiales"];
             dt.Rows.Add(MateriaTextBox.Text, CantidadTextBox.Text);
-            MaterialesGridView.DataSource = dt;
-            
             Session["Materiales"] = dt;
+            MaterialesGridView.DataSource = dt;
+            MaterialesGridView.DataBind();
+            
             MateriaTextBox.Text = string.Empty;
             CantidadTextBox.Text = string.Empty;
         }
