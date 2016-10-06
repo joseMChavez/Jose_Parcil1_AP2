@@ -66,7 +66,7 @@ namespace BLL
             catch (Exception ex)
             {
 
-                lthrow ex;
+                throw ex;
             }
             return retorno;
         }
